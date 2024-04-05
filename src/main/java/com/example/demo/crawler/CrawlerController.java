@@ -1,5 +1,6 @@
 package com.example.demo.crawler;
 
+import com.example.demo.crawler.service.CrawlerServiceImpl;
 import lombok.Getter;
 import org.jsoup.nodes.Element;
 
