@@ -1,10 +1,6 @@
 package com.example.demo.user;
 
 
-
-import java.sql.SQLException;
-
-
 import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
 import com.example.demo.user.model.UserDto;

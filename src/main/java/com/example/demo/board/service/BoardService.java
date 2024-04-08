@@ -2,7 +2,6 @@ package com.example.demo.board.service;
 
 import com.example.demo.board.model.Board;
 import com.example.demo.board.model.BoardDto;
-
 import com.example.demo.common.service.CommandService;
 import com.example.demo.common.service.QueryService;
 
