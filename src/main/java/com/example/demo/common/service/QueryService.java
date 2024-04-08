@@ -9,7 +9,7 @@ import java.util.Optional;
 //조회
 public interface QueryService <T>{
 
-    List<T> findAll(PageRequestVo vo);
+    List<T> findAll();
     Optional<T> findById(Long id);
     Long count();
     Boolean existsById(Long id);

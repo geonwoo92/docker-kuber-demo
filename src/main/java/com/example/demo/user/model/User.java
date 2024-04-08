@@ -1,8 +1,11 @@
 package com.example.demo.user.model;
 
+import com.example.demo.article.model.Article;
 import com.example.demo.common.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +24,7 @@ public class User extends BaseEntity {
     private String name;
     private String phone;
     private String job;
+
 
 
     @Builder(builderMethodName = "builder")

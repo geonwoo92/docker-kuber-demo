@@ -20,7 +20,7 @@ import java.util.List;
 public class BoardDto {
 
     private Long id;
-    private String boardName;
+
     private String boardType;
 
     private List<Article> articles = new ArrayList<>();

@@ -3,12 +3,14 @@ package com.example.demo.article.service;
 
 import com.example.demo.article.model.ArticleDto;
 import com.example.demo.article.repository.ArticleRepository;
-import com.example.demo.common.component.PageRequestVo;
+import com.example.demo.common.component.MessengerVo;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,19 +22,27 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public ArticleDto save(ArticleDto articleDto) {
-        return entityToDto(Optional.of(repository.save(dtoToEntity(articleDto))) );
+    public MessengerVo save(ArticleDto articleDto) {
+        entityToDto(Optional.of(repository.save(dtoToEntity(articleDto))));
+        return new MessengerVo();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public MessengerVo deleteById(Long id) {
         repository.deleteById(id);
+        return new MessengerVo();
+    }
+
+    @Override
+    public MessengerVo modify(ArticleDto articleDto) {
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+
     }
 
 
     @Override
-    public List<ArticleDto> findAll(PageRequestVo vo) {
-        return null;
+    public List<ArticleDto> findAll() {
+        return new ArrayList<>();
     }
 
     @Override

@@ -3,11 +3,13 @@ package com.example.demo.board.service;
 
 import com.example.demo.board.model.BoardDto;
 import com.example.demo.board.repository.BoardRepository;
+import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,19 +21,27 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-    public BoardDto save(BoardDto boardDto) {
-        return entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))) );
+    public MessengerVo save(BoardDto boardDto) {
+        entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))) );
+        return new MessengerVo();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public MessengerVo deleteById(Long id) {
         repository.deleteById(id);
+        return new MessengerVo();
 
     }
 
     @Override
-    public List<BoardDto> findAll(PageRequestVo vo) {
+    public MessengerVo modify(BoardDto boardDto) {
         return null;
+    }
+
+
+    @Override
+    public List<BoardDto> findAll() {
+        return new ArrayList<>();
     }
 
     @Override

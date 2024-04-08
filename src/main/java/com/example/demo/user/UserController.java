@@ -12,6 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @ApiResponses(value = {
@@ -23,28 +27,29 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserServiceImpl service;
 
-    @PostMapping("")
-    public ResponseEntity<MessengerVo> Save(UserDto vo) {
-        service.save(null);
+    @SuppressWarnings("static-access")
+    @PostMapping("/save")
+    public ResponseEntity<MessengerVo> Save(@RequestBody UserDto dto) {
+        log.info("입력받은 정보: {}", dto);
+        return ResponseEntity.ok(service.save(dto));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id) {
-        service.deleteById(0L);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/list")
+    public ResponseEntity<List<UserDto>> findAll(){
+        log.info("입력받은 정보 : {}" );
+        return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("")
-    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo) {
-        service.findAll(null);
-        return ResponseEntity.ok(new MessengerVo());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MessengerVo> findById(@PathVariable long id) {
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<UserDto>> findById(@RequestParam long id) {
+        log.info("입력받은 정보 : {}",id );
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping("/count")
@@ -53,11 +58,30 @@ public class UserController {
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @GetMapping("/exists/{id}")
+    @GetMapping("/exists")
     public ResponseEntity<MessengerVo> existsById(@PathVariable long id) {
         service.existsById(0L);
         return ResponseEntity.ok(new MessengerVo());
     }
+
+    @PutMapping("/modify")
+    public ResponseEntity<MessengerVo> modify(@RequestBody UserDto param) {
+        log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.modify(param));
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<UserDto>> findUsersByName(@RequestBody UserDto param) {
+        //log.info("입력받은 정보 : {}", name );
+        return ResponseEntity.ok(service.findUsersByName(param.getName()));
+    }
+
+    @PostMapping(path = "/login")
+    public ResponseEntity<MessengerVo> login(@RequestBody UserDto param) {
+        log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.login(param));
+    }
+
 
 
 }

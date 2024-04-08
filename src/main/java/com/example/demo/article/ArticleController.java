@@ -1,15 +1,21 @@
 package com.example.demo.article;
 
 
+import com.example.demo.article.model.Article;
+import com.example.demo.article.model.ArticleDto;
 import com.example.demo.article.service.ArticleServiceImpl;
 import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
+import com.example.demo.user.model.UserDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,28 +28,29 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
     private final ArticleServiceImpl service;
 
-    @PostMapping("")
-    public ResponseEntity<MessengerVo> Save(PageRequestVo vo) {
-        service.save(null);
-        return ResponseEntity.ok(new MessengerVo());
+    @SuppressWarnings("static-access")
+    @PostMapping("/save")
+    public ResponseEntity<MessengerVo> Save(@RequestBody ArticleDto dto) {
+        log.info("입력받은 정보: {}", dto);
+        return ResponseEntity.ok(service.save(dto));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id) {
-        service.deleteById(0L);
+    @DeleteMapping("/delete")
+    public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(new MessengerVo());
     }
 
     @GetMapping("")
-    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo) {
-        service.findAll(null);
-        return ResponseEntity.ok(new MessengerVo());
+    public ResponseEntity<List<ArticleDto>> findAll(){
+        log.info("입력받은 정보 : {}" );
+        return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MessengerVo> findById(@PathVariable long id) {
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<ArticleDto>> findById(@RequestParam long id) {
+        log.info("입력받은 정보 : {}",id );
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping("/count")
@@ -52,9 +59,15 @@ public class ArticleController {
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @GetMapping("/exists/{id}")
+    @GetMapping("/exists")
     public ResponseEntity<MessengerVo> existsById(@PathVariable long id) {
         service.existsById(0L);
         return ResponseEntity.ok(new MessengerVo());
     }
+    @PutMapping("/modify")
+    public ResponseEntity<MessengerVo> modify(@RequestBody ArticleDto param) {
+        log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.modify(param));
+    }
+
 }

@@ -1,14 +1,20 @@
 package com.example.demo.board;
 
+import com.example.demo.article.model.ArticleDto;
+import com.example.demo.board.model.BoardDto;
 import com.example.demo.board.service.BoardServiceImpl;
 import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
+import com.example.demo.user.model.UserDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,28 +28,28 @@ public class BoardController {
     private final BoardServiceImpl service;
     //보드컨트롤러
 
-    @PostMapping("")
-    public ResponseEntity<MessengerVo> Save(PageRequestVo vo) {
-        service.save(null);
+    @SuppressWarnings("static-access")
+    @PostMapping("/save")
+    public ResponseEntity<MessengerVo> Save(@RequestBody BoardDto dto) {
+        log.info("입력받은 정보: {}", dto);
+        return ResponseEntity.ok(service.save(dto));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id) {
-        service.deleteById(0L);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/list")
+    public ResponseEntity<List<BoardDto>> findAll(){
+        log.info("입력받은 정보 : {}" );
+        return ResponseEntity.ok(service.findAll());
     }
-
-    @GetMapping("")
-    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo) {
-        service.findAll(null);
-        return ResponseEntity.ok(new MessengerVo());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MessengerVo> findById(@PathVariable long id) {
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<BoardDto>> findById(@RequestParam long id) {
+        log.info("입력받은 정보 : {}",id );
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping("/count")
@@ -52,10 +58,16 @@ public class BoardController {
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @GetMapping("/exists/{id}")
+    @GetMapping("/exists")
     public ResponseEntity<MessengerVo> existsById(@PathVariable long id) {
         service.existsById(0L);
         return ResponseEntity.ok(new MessengerVo());
     }
+    @PutMapping("/modify")
+    public ResponseEntity<MessengerVo> modify(@RequestBody BoardDto param) {
+        log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.modify(param));
+    }
+
 
 }

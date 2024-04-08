@@ -1,11 +1,15 @@
 package com.example.demo.user.service;
 
 
+import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
+import com.example.demo.user.model.User;
 import com.example.demo.user.model.UserDto;
 import com.example.demo.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,26 +17,37 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository repository;
 
+
     @Override
-    public UserDto save(UserDto userDto) {
-        return entityToDto(Optional.of(repository.save(dtoToEntity(userDto))) );
+    public MessengerVo save(UserDto userDto) {
+         entityToDto(Optional.of(repository.save(dtoToEntity(userDto))) );
+        return new MessengerVo();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public MessengerVo deleteById(Long id) {
         repository.deleteById(id);
+        return new MessengerVo();
     }
 
     @Override
-    public List<UserDto> findAll(PageRequestVo vo) {
-        return null;
+    public MessengerVo modify(UserDto userDto) {
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+    }
+
+    @Override
+    public List<UserDto> findAll() {
+        return new ArrayList<>();
     }
 
     @Override
     public Optional<UserDto> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+
+//        Optional.of(entityToDto(repository.findById(id)));
+        return null;
     }
 
     @Override
@@ -44,5 +59,27 @@ public class UserServiceImpl implements UserService {
     public Boolean existsById(Long id) {
         return repository.existsById(id);
     }
+
+
+    @Override
+    public List<UserDto> findUsersByName(String name) {
+        return List.of();
+    }
+
+    @Override
+    public List<UserDto> findUsersByJob(String job) {
+        throw new UnsupportedOperationException("Unimplemented method 'findUsersByJob'");
+    }
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    @Override
+    public MessengerVo login(UserDto param) {
+        throw new UnsupportedOperationException("Unimplemented method 'login'");
+    }
+
 }
 
