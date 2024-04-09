@@ -14,12 +14,18 @@ public interface BoardService extends CommandService<BoardDto>, QueryService<Boa
 
     default Board dtoToEntity(BoardDto dto) {
 
-        return Board.builder().build();
+        return Board.builder()
+                .id(dto.getId())
+                .boardType(dto.getBoardType())
+                .build();
     }
 
-    default BoardDto entityToDto(Optional<Board> optional) {
+    default BoardDto entityToDto(Board board) {
 
-        return BoardDto.builder().build();
+        return BoardDto.builder()
+                .id(board.getId())
+                .boardType(board.getBoardType())
+                .build();
 
     }
     

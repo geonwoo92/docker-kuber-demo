@@ -23,7 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public MessengerVo save(ArticleDto articleDto) {
-        entityToDto(Optional.of(repository.save(dtoToEntity(articleDto))));
+        entityToDto((repository.save(dtoToEntity(articleDto))));
         return new MessengerVo();
     }
 
@@ -42,12 +42,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll() {
-        return new ArrayList<>();
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
     public Optional<ArticleDto> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+        return null;
     }
 
     @Override

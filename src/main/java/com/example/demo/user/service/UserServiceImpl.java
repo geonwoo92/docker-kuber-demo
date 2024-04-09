@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,12 +24,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public MessengerVo save(UserDto userDto) {
-         entityToDto(Optional.of(repository.save(dtoToEntity(userDto))) );
+        entityToDto((repository.save(dtoToEntity(userDto))));
         return new MessengerVo();
     }
 
     @Override
     public MessengerVo deleteById(Long id) {
+
         repository.deleteById(id);
         return new MessengerVo();
     }
@@ -40,7 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        return new ArrayList<>();
+
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override

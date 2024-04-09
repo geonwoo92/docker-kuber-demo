@@ -22,7 +22,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public MessengerVo save(BoardDto boardDto) {
-        entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))) );
+        entityToDto((repository.save(dtoToEntity(boardDto))) );
         return new MessengerVo();
     }
 
@@ -41,12 +41,13 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDto> findAll() {
-        return new ArrayList<>();
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
     public Optional<BoardDto> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+//        Optional.of(entityToDto(repository.findById(id)));
+        return null;
     }
 
     @Override

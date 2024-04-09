@@ -5,21 +5,26 @@ import com.example.demo.article.model.ArticleDto;
 import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.service.CommandService;
 import com.example.demo.common.service.QueryService;
-import com.example.demo.user.model.UserDto;
-
-import java.util.Optional;
 
 
 public interface ArticleService extends CommandService<ArticleDto>, QueryService<ArticleDto> {
     MessengerVo modify(ArticleDto article);
     default Article dtoToEntity(ArticleDto dto) {
 
-        return Article.builder().build();
+        return Article.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .build();
     }
 
-    default ArticleDto entityToDto(Optional<Article> optional) {
+    default ArticleDto entityToDto(Article article) {
 
-        return ArticleDto.builder().build();
+        return ArticleDto.builder()
+                .id(article.getId())
+                .title(article.getTitle())
+                .content(article.getContent())
+                .build();
 
     }
 }

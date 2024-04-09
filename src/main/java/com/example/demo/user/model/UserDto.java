@@ -23,4 +23,6 @@ public class UserDto {
     private String name;
     private String phone;
     private String job;
+    private String regDate;
+    private String modDate;
 }

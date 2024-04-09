@@ -41,7 +41,7 @@ public class ArticleController {
         return ResponseEntity.ok(new MessengerVo());
     }
 
-    @GetMapping("")
+    @GetMapping("/list")
     public ResponseEntity<List<ArticleDto>> findAll(){
         log.info("입력받은 정보 : {}" );
         return ResponseEntity.ok(service.findAll());
