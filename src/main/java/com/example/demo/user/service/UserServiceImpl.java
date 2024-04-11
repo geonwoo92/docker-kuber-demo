@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+    private final UserDto userDto;
 
 
     @Override
@@ -37,20 +38,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public MessengerVo modify(UserDto userDto) {
-        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+        return repository.findById(userDto.getId())
+                .map(user -> {
+                    user.setName(userDto.getName());
+                    user.setPassword(userDto.getPassword());
+                    user.setJob(userDto.getJob());
+                    user.setPhone(userDto.getPhone());
+                    return repository.save(user);
+                })
+                .map(user -> MessengerVo.builder().message("변경완료").build())
+                .orElseGet(() -> MessengerVo.builder().message("존재하지 않는 ID입니다").build());
     }
 
     @Override
     public List<UserDto> findAll() {
 
-        return repository.findAll().stream().map(i->entityToDto(i)).toList();
+        return repository.findAll().stream().map(i -> entityToDto(i)).toList();
     }
 
     @Override
     public Optional<UserDto> findById(Long id) {
-
-//        Optional.of(entityToDto(repository.findById(id)));
-        return null;
+        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
 
     @Override

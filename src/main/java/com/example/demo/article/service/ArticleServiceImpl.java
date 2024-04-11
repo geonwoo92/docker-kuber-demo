@@ -1,16 +1,11 @@
 package com.example.demo.article.service;
 
-
 import com.example.demo.article.model.ArticleDto;
 import com.example.demo.article.repository.ArticleRepository;
 import com.example.demo.common.component.MessengerVo;
-
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,24 +25,25 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public MessengerVo deleteById(Long id) {
         repository.deleteById(id);
-        return new MessengerVo();
+        return MessengerVo.builder().message("게시글 삭제").build();
     }
 
     @Override
     public MessengerVo modify(ArticleDto articleDto) {
-        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+
+        return null;
 
     }
 
 
     @Override
     public List<ArticleDto> findAll() {
-        return repository.findAll().stream().map(i->entityToDto(i)).toList();
+        return repository.findAll().stream().map(i -> entityToDto(i)).toList();
     }
 
     @Override
     public Optional<ArticleDto> findById(Long id) {
-        return null;
+        return repository.findById(id).stream().map(i -> entityToDto(i)).findAny();
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ArticleController {
     @DeleteMapping("/delete")
     public ResponseEntity<MessengerVo> deleteById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}", id );
-        return ResponseEntity.ok(new MessengerVo());
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
     @GetMapping("/list")

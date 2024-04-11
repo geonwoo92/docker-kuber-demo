@@ -1,11 +1,11 @@
 package com.example.demo.board;
 
-import com.example.demo.article.model.ArticleDto;
+
 import com.example.demo.board.model.BoardDto;
 import com.example.demo.board.service.BoardServiceImpl;
 import com.example.demo.common.component.MessengerVo;
 import com.example.demo.common.component.PageRequestVo;
-import com.example.demo.user.model.UserDto;
+
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;

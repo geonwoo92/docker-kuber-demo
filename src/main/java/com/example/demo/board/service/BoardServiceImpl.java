@@ -28,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public MessengerVo deleteById(Long id) {
+
         repository.deleteById(id);
         return new MessengerVo();
 
@@ -35,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public MessengerVo modify(BoardDto boardDto) {
-        return null;
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
     }
 
 
@@ -47,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Optional<BoardDto> findById(Long id) {
 //        Optional.of(entityToDto(repository.findById(id)));
-        return null;
+        return repository.findById(id).stream().map(i->entityToDto(i)).findAny();
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 @Entity(name = "users")
 @ToString(exclude = "id")
 public class User extends BaseEntity {

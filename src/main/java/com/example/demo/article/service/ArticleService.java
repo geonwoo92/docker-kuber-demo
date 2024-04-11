@@ -9,6 +9,7 @@ import com.example.demo.common.service.QueryService;
 
 public interface ArticleService extends CommandService<ArticleDto>, QueryService<ArticleDto> {
     MessengerVo modify(ArticleDto article);
+
     default Article dtoToEntity(ArticleDto dto) {
 
         return Article.builder()
@@ -24,6 +25,8 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
                 .id(article.getId())
                 .title(article.getTitle())
                 .content(article.getContent())
+                .regDate(article.getRegDate().toString())
+                .modDate(article.getModDate().toString())
                 .build();
 
     }
