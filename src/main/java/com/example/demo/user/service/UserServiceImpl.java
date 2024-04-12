@@ -33,21 +33,26 @@ public class UserServiceImpl implements UserService {
     public MessengerVo deleteById(Long id) {
 
         repository.deleteById(id);
-        return new MessengerVo();
+        return MessengerVo.builder()
+                .message(repository.findById(id).isPresent() ? "SUCCESS" : "FAILURE")
+                .build();
     }
 
     @Override
     public MessengerVo modify(UserDto userDto) {
-        return repository.findById(userDto.getId())
-                .map(user -> {
-                    user.setName(userDto.getName());
-                    user.setPassword(userDto.getPassword());
-                    user.setJob(userDto.getJob());
-                    user.setPhone(userDto.getPhone());
-                    return repository.save(user);
-                })
-                .map(user -> MessengerVo.builder().message("변경완료").build())
-                .orElseGet(() -> MessengerVo.builder().message("존재하지 않는 ID입니다").build());
+
+        repository.save(dtoToEntity(userDto));
+        return MessengerVo.builder().message("성공").build();
+
+//        return repository.findById(userDto.getId())
+//                .stream()
+//                .peek(i->userDto.setName((i.getName())==null)?userDto.setName(i.getName()):userDto.setName(i.getName()))
+//                .peek(i->userDto.setJob(i.getJob()))
+//                .peek(i->userDto.setPassword(i.getPassword()))
+//                .peek(i->userDto.setPhone(i.getPhone()))
+//                .
+//                .map(user -> MessengerVo.builder().message("변경완료").build())
+//                .orElseGet(() -> MessengerVo.builder().message("존재하지 않는 ID입니다").build());
     }
 
     @Override
